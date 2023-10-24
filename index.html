@@ -1,15 +1,40 @@
 <!DOCTYPE html>
 <html style="font-family:Helvetica" lang="en">
-    <link rel="stylesheet" href="style.css">
     <head>
         <body style="background-color:#609CE1">
             <header>
                 <h1>Random Thing</h1>
                 <h2> Insert Music Here &#127925 </h2>
-                <form action="/action_page.php" target="_self" method="post"> <input type="file" id="myFile" name="filename"> <input type="submit" formtarget="_self" formenctype="multipart/form-data"> <input type="reset"></form>
-                <audio controls autoplay> <source src="filename.mp3" type="audio/mpeg" name="filename"> </audio>
+                <input type="file" id="myAudio" name="AudioInput" accept="audio/*" multiple size = "50"> <input type="reset">
+                <audio id="myAudio"> <source type="audio/mpeg"> <source type="audio/mp4"> </audio>
+                <button onclick="playAudio()">Play Audio</button>
+                <button onclick="enableControls()">Enable Controls</button>
+                <button onclick="volume()">Volume</button>
+                <script> 
+                    var aud = document.getElementById("myAudio");
+                    document.getElementById("demo").innerHTML = txt;
+                    function playAudio() {
+                        alert("Audio Playing")
+                        aud.play();
+                    };
+                    function enableControls() {
+                        aud.controls = true;
+                        aud.load();
+                    }
+                    function volume() {
+                        alert(aud.volume)
+                    }
+                </script> 
             </header>
+            <button> Switch </button>
             <style>
+                html {
+                    text-align: center;
+                    margin: 4px 2px;
+                }
+                header {
+                    background-color: skyblue;
+                }
                 div {
                     background-color: #236AB9;
                     text-align: center;
@@ -21,6 +46,21 @@
                 audio {
                     background-color: #133863;
                     text-align: center;
+                }
+                input {
+                    width : 25%;
+                    padding: 15px 25px;
+                    background-color: #3CBC8D;
+                    box-shadow: 5px 5px;
+                }
+                input:hover {
+                    transform: scale(1.1, 1.1);
+                    transition-timing-function: ease-in-out;
+                    animation-duration: 5s;
+                }
+                #container {
+                    direction: rtl;
+                    scroll-padding-right: 10px;
                 }
             </style>
         </body>
