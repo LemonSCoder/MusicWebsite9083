@@ -1,0 +1,12 @@
+                urlLink = link(url)
+                </script> 
+            </header>
+            <audio id="audiosource" controls></audio>
+            <button onclick="switchAudio()"> Switch </button>
+            <div class="dropdown">
+                <button onclick="dropdownFunction()" class="dropbtn"> Switch to Choice Song </button>
+                <div id="myDropdown" class="dropdown-content">
+                    <a href = "urlLink">Song</a>
+                </div>
+            </div>
+            <style>
