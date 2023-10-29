@@ -10,8 +10,9 @@
                 <script> 
                     var fileNumber = 0;
                     function playAudio() {
-                        var music = document.getElementsById("myAudio")
-                        var file = music.files[fileNumber]
+                        var music = document.getElementById("myAudio")
+                        var musicFiles = music.files
+                        var file = musicFiles[fileNumber]
                         var fileReader = new FileReader()
                         fileReader.onloadend = function (e) {
                             var arrayBuffer = e.target.result;
@@ -20,13 +21,14 @@
                             var url = document.getElementById("audiosource").src
                         }
                         fileReader.readAsArrayBuffer(file)
-                        //aud.play();
+                        //music.play();
                     };
                     function switchAudio() {
-                        if (fileNumber.length >= fileNumber) {
+                        if (musicFiles.length >= fileNumber + 1 && musicFiles.length != 0) {
+                            console.log(musicFiles.length);
                             fileNumber += 1;
                         } else {
-                            fileNumber = 0
+                            fileNumber = 0;
                         }
                         playAudio();
                     }
