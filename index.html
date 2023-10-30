@@ -5,62 +5,60 @@
             <header>
                 <h1>Random Thing</h1>
                 <h2> Insert Music Here &#127925 </h2>
-                <input type="file" id="myAudio" name="AudioInput" accept="audio/*" multiple size = "50"> <input type="reset">
-                <button onclick="playAudio()">Play Audio</button>
+                <form>
+                    <input type="file" id="myAudio" name="AudioInput" accept="audio/mpeg3" multiple size = "50">
+                    <input type="button" onclick="playAudio()">
+                    <audio id="audiosource" controls></audio>
+                    <input type="button" onclick="switchAudio()">
+                    <input type="reset" onclick="retry()">
+                </form>
                 <script> 
                     var fileNumber = 0;
                     function playAudio() {
                         var music = document.getElementById("myAudio")
-                        var musicFiles = music.files
+                        musicFiles = music.files
                         var file = musicFiles[fileNumber]
-                        var fileReader = new FileReader()
+                        fileReader = new FileReader()
+                        if (musicFiles.length >= fileNumber + 1) {
+                            fileReader.readAsArrayBuffer(file)
+                        } else {
+                            retry();
+                        }
                         fileReader.onloadend = function (e) {
                             var arrayBuffer = e.target.result;
                             var blob = new Blob([arrayBuffer], {type: "audio/mpeg3"})
                             document.getElementById("audiosource").src = URL.createObjectURL(blob)
                             var url = document.getElementById("audiosource").src
                         }
-                        fileReader.readAsArrayBuffer(file)
                         //music.play();
                     };
+                    async function deleteBlob(containerClient, blobName) {
+                        const options = {
+                            deleteSnapshots: 'include'
+                        }
+
+                        const blockBlobClient = await containerClient.getBlockBlobClient(blobName);
+                        await blockBlobClient.deleteIfExists(options);
+                    }
+                    function retry() {
+                        var fileNumber = 0;
+                        var music = ""
+                        deleteBlob();
+                        var url = "";
+                    }
                     function switchAudio() {
                         if (musicFiles.length >= fileNumber + 1 && musicFiles.length != 0) {
-                            console.log(musicFiles.length);
                             fileNumber += 1;
                         } else {
-                            fileNumber = 0;
+                            console.log("blah");
                         }
                         playAudio();
                     }
                     function dropdownFunction() {
                         document.getElementById("myDropdown").classList.toggle("show");
                     }
-                    window.onclick = function(event) {
-                        if (!event.target.matches('.dropbtn')) {
-                            var dropdowns = document.getElementsByClassName("dropdown-content");
-                            var i;
-                            for (i=0; i < dropdowns.length; i++) {
-                                var openDropdown = dropdowns[i];
-                                if (openDropdown.classList.contains('show')) {
-                                    openDropdown.classList.remove("show");
-                                }
-                            }
-                        }
-                    }
                 </script> 
             </header>
-            <audio id="audiosource" controls></audio>
-            <button onclick="switchAudio()"> Switch </button>
-            <div class="dropdown">
-                <button onclick="dropdownFunction()" class="dropbtn"> Switch to Choice Song </button>
-                <div id="myDropdown" class="dropdown-content">
-                    <p>
-                      <script>
-                          var url;
-                      </script>
-                    </p>
-                </div>
-            </div>
             <style>
                 html {
                     text-align: center;
@@ -92,34 +90,6 @@
                     transition-timing-function: ease-in-out;
                     animation-duration: 5s;
                 }
-                #container {
-                    direction: rtl;
-                    scroll-padding-right: 10px;
-                }
-                .dropbtn {
-                    background-color: #3498DB;
-                    color: aliceblue;
-                    padding: 15px;
-                    cursor: pointer;
-                }
-                .dropbtn:hover, .dropbtn:focus {
-                    background-color: beige;
-                }
-                .dropdown {
-                    display: inline-block;
-                }
-                .dropdown-content {
-                    display: none;
-                    background-color: white;
-                    z-index: 1;
-                }
-                .dropdown-content a {
-                    color: chocolate;
-                    padding: 12px 16px;
-                    display: block;
-                }
-                .dropdown-content a:hover {background-color: #ddd;}
-                .show {display:block;}
             </style>
         </body>
     </head>
