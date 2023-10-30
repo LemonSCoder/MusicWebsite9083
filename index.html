@@ -7,10 +7,9 @@
                 <h2> Insert Music Here &#127925 </h2>
                 <form>
                     <input type="file" id="myAudio" name="AudioInput" accept="audio/mpeg3" multiple size = "50">
-                    <input type="button" onclick="playAudio()">
-                    <audio id="audiosource" controls></audio>
+                    <input id="PlayAudio" type="button" onclick="playAudio()">
+                    <audio id="audiosource" controls></audio> 
                     <input type="button" onclick="switchAudio()">
-                    <input type="reset" onclick="retry()">
                 </form>
                 <script> 
                     var fileNumber = 0;
@@ -19,10 +18,13 @@
                         musicFiles = music.files
                         var file = musicFiles[fileNumber]
                         fileReader = new FileReader()
-                        if (musicFiles.length >= fileNumber + 1) {
+                        if (musicFiles.length - 1 >= fileNumber) {
                             fileReader.readAsArrayBuffer(file)
                         } else {
                             retry();
+                        }
+                        if (musicFiles.length == 0) {
+                            alert("Insert a File.")
                         }
                         fileReader.onloadend = function (e) {
                             var arrayBuffer = e.target.result;
@@ -31,18 +33,17 @@
                             var url = document.getElementById("audiosource").src
                         }
                         //music.play();
-                    };
+                    }
                     function retry() {
                         var fileNumber = 0;
                         var music = ""
-                        deleteBlob(client, blob);
                         var url = "";
                     }
                     function switchAudio() {
                         if (musicFiles.length >= fileNumber + 1 && musicFiles.length != 0) {
                             fileNumber += 1;
                         } else {
-                            console.log("blah");
+                            alert("End of feed. Refresh to play more songs.")
                         }
                         playAudio();
                     }
@@ -59,9 +60,16 @@
                 header {
                     background-color: skyblue;
                 }
+                h3 {
+                    visibility: hidden;
+                }
                 div {
                     background-color: #236AB9;
                     text-align: center;
+                }
+                br {
+                    padding-top: 45px;
+                    padding-bottom: 45px;
                 }
                 form {
                     background-color: #57779b;
@@ -74,7 +82,7 @@
                 input {
                     width : 15%;
                     padding: 15px 25px;
-                    background-color: #3CBC8D;
+                    background-color: #D3DDF8;
                     box-shadow: 5px 5px;
                 }
                 input:hover {
