@@ -32,18 +32,10 @@
                         }
                         //music.play();
                     };
-                    async function deleteBlob(containerClient, blobName) {
-                        const options = {
-                            deleteSnapshots: 'include'
-                        }
-
-                        const blockBlobClient = await containerClient.getBlockBlobClient(blobName);
-                        await blockBlobClient.deleteIfExists(options);
-                    }
                     function retry() {
                         var fileNumber = 0;
                         var music = ""
-                        deleteBlob();
+                        deleteBlob(client, blob);
                         var url = "";
                     }
                     function switchAudio() {
