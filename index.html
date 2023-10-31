@@ -3,19 +3,19 @@
     <head>
         <body style="background-color:#609CE1">
             <header>
-                <h1>Random Thing</h1>
+                <h1>Music Player</h1>
                 <h2> Insert Music Here &#127925 </h2>
-                <form>
-                    <input type="file" id="myAudio" name="AudioInput" accept="audio/mpeg3" multiple size = "50">
-                    <input id="PlayAudio" type="button" onclick="playAudio()">
-                    <audio id="audiosource" controls></audio> 
-                    <input type="button" onclick="switchAudio()">
-                </form>
+                <audio id="audiosource" controls></audio> 
+                <aside>
+                <input type="file" id="myAudio" name="AudioInput" accept="audio/mpeg3" multiple size = "50">
+                <button onclick="playAudio()">Play Audio</button>
+                <button onclick="switchAudio()"> Switch Audio </button>
+                </aside>
                 <script> 
                     var fileNumber = 0;
                     function playAudio() {
                         var music = document.getElementById("myAudio")
-                        musicFiles = music.files
+                        var musicFiles = music.files
                         var file = musicFiles[fileNumber]
                         fileReader = new FileReader()
                         if (musicFiles.length - 1 >= fileNumber) {
@@ -42,6 +42,8 @@
                     function switchAudio() {
                         if (musicFiles.length >= fileNumber + 1 && musicFiles.length != 0) {
                             fileNumber += 1;
+                        } else if (musicFiles.length == 0) {
+                            alert("Insert a file.")
                         } else {
                             alert("End of feed. Refresh to play more songs.")
                         }
@@ -53,41 +55,49 @@
                 </script> 
             </header>
             <style>
+                @keyframes changeColor {
+                    0%   {background-color:AliceBlue;}
+                    25%  {background-color:AliceBlue;}
+                    50%  {background-color:AliceBlue;}
+                    75%  {background-color:AliceBlue;}
+                    100% {background-color:AliceBlue;}
+                }
                 html {
                     text-align: center;
                     margin: 4px 2px;
                 }
-                header {
-                    background-color: skyblue;
-                }
                 h3 {
                     visibility: hidden;
-                }
-                div {
-                    background-color: #236AB9;
-                    text-align: center;
                 }
                 br {
                     padding-top: 45px;
                     padding-bottom: 45px;
                 }
-                form {
-                    background-color: #57779b;
-                    text-align: center;
-                }
-                audio {
-                    background-color: #133863;
-                    text-align: center;
-                }
                 input {
+                    border-radius: 25px;
                     width : 15%;
-                    padding: 15px 25px;
-                    background-color: #D3DDF8;
-                    box-shadow: 5px 5px;
+                    font-size: 8px;
+                    padding: 5px 10px;
+                    background-color: #B3C0E6;
                 }
                 input:hover {
                     transform: scale(1.1, 1.1);
+                    background: AliceBlue;
+                    transition: background-color 0.5s;
                     transition-timing-function: ease-in-out;
+                    animation-duration: 5s;
+                }
+                button {
+                    border-radius: 25px;
+                    font-size: 11px;
+                    width : 15%;
+                    padding: 5px 10px;
+                    background-color: #B3C0E6;              
+                }
+                button:hover {
+                    transform: scale(1.1, 1.1);  
+                    background: AliceBlue;
+                    transition: background-color 0.5s;
                     animation-duration: 5s;
                 }
             </style>
