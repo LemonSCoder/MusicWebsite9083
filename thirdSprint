@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html style="font-family:Helvetica" lang="en">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
+    <head>
+        <body>
+            <header>
+                <b>
+                    <h1>Music Player &#127925</h1>
+                    <h2> Insert Music with the Files Button &#128071;&#127995;</h2>
+                </b>
+            </header>
+            <audio id="audiosource" controls></audio>
+            <aside>
+                <input type="file" id="myAudio" name="AudioInput" accept="audio/mpeg3" multiple size = "50"> <br>
+                <button onclick="playAudio()">Play Audio</button> <br>
+                <button onclick="switchAudio()"> Switch Audio </button> <br>
+            </aside>
+            <script> 
+                var fileNumber = 0;
+                function playAudio() {
+                    var music = document.getElementById("myAudio")
+                    musicFiles = music.files
+                    var file = musicFiles[fileNumber]
+                    fileReader = new FileReader()
+                    if (musicFiles.length - 1 >= fileNumber) {
+                        fileReader.readAsArrayBuffer(file)
+                    }
+                    if (musicFiles.length == 0) {
+                        alert("Insert a File.")
+                    }
+                    fileReader.onloadend = function (e) {
+                        var arrayBuffer = e.target.result;
+                        var blob = new Blob([arrayBuffer], {type: "audio/mpeg3"})
+                        document.getElementById("audiosource").src = URL.createObjectURL(blob)
+                        var url = document.getElementById("audiosource").src
+                    }
+                        //music.play();
+                    }
+                    function switchAudio() {
+                        if (musicFiles.length > fileNumber + 1 && musicFiles.length != 0) {
+                            fileNumber += 1;
+                        } else if (musicFiles.length == fileNumber + 1 && musicFiles.length != 0) {
+                            alert("End of feed. Refresh to play more songs.")
+                        }
+                        playAudio();
+                    }
+                    function dropdownFunction() {
+                        document.getElementById("myDropdown").classList.toggle("show");
+                    }
+            </script> 
+            <style>
+                html {
+                    resize: both;
+                    overflow: auto;
+                    background-color: black;
+                    background-image: url("https://gray-kcrg-prod.cdn.arcpublishing.com/resizer/SQ0LJoWDiK1bdH3ijmhQUGW60sc=/1200x675/smart/filters:quality(85)/cloudfront-us-east-1.images.arcpublishing.com/gray/O76ITN74W5CBVGDEA3H2MNDHMA.jpg");
+                    background-size: 100%;
+                    background-repeat: no-repeat;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    height: 80%;
+                    scroll-behavior: smooth;
+                }
+                aside {
+                    line-height: 75px;
+                }
+                header {
+                    scale: 250%;
+                    color: white;
+                    text-align: center;
+                    line-height: 1;
+                }
+                input {
+                    scale: 175%;
+                    position: absolute;
+                    margin-top: 150px;
+                    width: 15%;
+                    right: 25%;
+                    border-radius: 25px;
+                    font-size: 8px;
+                    background-color: #B3C0E6;
+                    padding-top: 7.5px;
+                    padding-bottom: 7.5px;   
+                }
+                input:hover {
+                    box-shadow: 1px 1px black;
+                    transform: scale(1.1, 1.1);
+                    background: AliceBlue;
+                    transition: background-color 0.5s;
+                    transition-timing-function: ease-in-out;
+                }
+                button {
+                    position: absolute;
+                    scale: 175%;
+                    margin-top: 150px;
+                    right: 25%;
+                    border-radius: 25px;
+                    font-size: 11px;
+                    width : 15%;
+                    background-color: #B3C0E6;     
+                    padding-top: 7.5px;
+                    padding-bottom: 7.5px;    
+                    transition-property: width, height;       
+                }
+                button:hover {
+                    box-shadow: 1px 1px black;
+                    transform: scale(1.1, 1.1);  
+                    background: AliceBlue;
+                    transition: background-color 0.5s;
+                    transition-timing-function: ease-in-out;
+                }
+                audio {
+                    position: absolute;
+                    scale: 200%;
+                    margin-top: 212.5px;
+                    left: 25%;
+                }
+                
+            </style>
+        </body>
+    </head>
+</html>
