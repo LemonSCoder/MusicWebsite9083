@@ -18,6 +18,12 @@
             </aside>
             <script> 
                 var fileNumber = 0;
+                var fileUploaded = false;
+                function changeVisibility() {
+                    if (fileUploaded == true) {
+                    document.getElementById("myAudio").style.visibility = "hidden";
+                    }
+                }
                 function playAudio() {
                     var music = document.getElementById("myAudio")
                     musicFiles = music.files
@@ -25,6 +31,8 @@
                     fileReader = new FileReader()
                     if (musicFiles.length - 1 >= fileNumber) {
                         fileReader.readAsArrayBuffer(file)
+                        fileUploaded = true;
+                        changeVisibility();
                     }
                     if (musicFiles.length == 0) {
                         alert("Insert a File.")
