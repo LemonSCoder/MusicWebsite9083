@@ -18,12 +18,6 @@
             </aside>
             <script> 
                 var fileNumber = 0;
-                var fileUploaded = false;
-                function changeVisibility() {
-                    if (fileUploaded == true) {
-                    document.getElementById("myAudio").style.visibility = "hidden";
-                    }
-                }
                 function playAudio() {
                     var music = document.getElementById("myAudio")
                     musicFiles = music.files
@@ -31,8 +25,6 @@
                     fileReader = new FileReader()
                     if (musicFiles.length - 1 >= fileNumber) {
                         fileReader.readAsArrayBuffer(file)
-                        fileUploaded = true;
-                        changeVisibility();
                     }
                     if (musicFiles.length == 0) {
                         alert("Insert a File.")
@@ -45,17 +37,17 @@
                     }
                         //music.play();
                     }
-                    function switchAudio() {
-                        if (musicFiles.length > fileNumber + 1 && musicFiles.length != 0) {
-                            fileNumber += 1;
-                        } else if (musicFiles.length == fileNumber + 1 && musicFiles.length != 0) {
-                            alert("End of feed. Refresh to play more songs.")
-                        }
-                        playAudio();
+                function switchAudio() {
+                    if (musicFiles.length > fileNumber + 1 && musicFiles.length != 0) {
+                        fileNumber += 1;
+                    } else if (musicFiles.length == fileNumber + 1 && musicFiles.length != 0) {
+                        alert("End of feed. Refresh to play more songs.")
                     }
-                    function dropdownFunction() {
-                        document.getElementById("myDropdown").classList.toggle("show");
-                    }
+                    playAudio();
+                }
+                function dropdownFunction() {
+                    document.getElementById("myDropdown").classList.toggle("show");
+                }
             </script> 
             <style>
                 html {
